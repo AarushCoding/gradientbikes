@@ -7,56 +7,48 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="shop.html" class="logo">GRADIENT<span>BIKES</span></a>
-        <div class="nav-links">
-            <a href="shop.html">Products</a>
-            <a href="#">Cart (0)</a>
-        </div>
+        <a href="index.html" class="logo"><span class="grad-text">GRADIENT</span>BIKES</a>
+        <div class="nav-links"><a href="shop.html">Shop</a></div>
     </nav>
 
-    <main class="shop-container">
-        <aside class="sidebar">
-            <h3>Filters</h3>
-            <select id="catFilter" onchange="renderProducts()">
-                <option value="all">All Categories</option>
-                <option value="Cleaning">Cleaning</option>
-                <option value="Maintenance">Maintenance</option>
-            </select>
-        </aside>
-
-        <section id="productGrid" class="product-grid"></section>
-    </main>
+    <div class="container">
+        <div class="shop-layout">
+            <aside class="filter-box">
+                <h3>Category</h3>
+                <select id="catFilter" class="filter-select" onchange="loadGrid()">
+                    <option value="all">All Products</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Maintenance">Maintenance</option>
+                </select>
+            </aside>
+            <section id="productGrid" class="product-grid"></section>
+        </div>
+    </div>
 
     <script>
-        let inventory = [];
-
+        let products = [];
         async function loadShop() {
-            const response = await fetch('products.csv');
-            const data = await response.text();
-            const lines = data.split('\n').slice(1);
-            
-            inventory = lines.map(line => {
-                const [id, name, cat, price, desc, img] = line.split(',');
-                return { id: id?.trim(), name, cat, price, desc, img };
-            }).filter(item => item.name);
-
-            renderProducts();
+            const resp = await fetch('products.csv');
+            const data = await resp.text();
+            products = data.split('\n').slice(1).map(row => {
+                const [id, name, cat, price, desc] = row.split(',');
+                return { id: id?.trim(), name, cat, price, desc };
+            }).filter(p => p.name);
+            loadGrid();
         }
 
-        function renderProducts() {
-            const filter = document.getElementById('catFilter').value;
+        function loadGrid() {
+            const f = document.getElementById('catFilter').value;
             const grid = document.getElementById('productGrid');
-            const filtered = filter === 'all' ? inventory : inventory.filter(p => p.cat === filter);
-
+            const filtered = f === 'all' ? products : products.filter(p => p.cat === f);
             grid.innerHTML = filtered.map(p => `
                 <a href="details.html?id=${p.id}" class="card">
                     <div class="img-box">IMAGE</div>
                     <h3>${p.name}</h3>
-                    <p>£${p.price}</p>
+                    <p class="price">£${p.price}</p>
                 </a>
             `).join('');
         }
-
         loadShop();
     </script>
 </body>
