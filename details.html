@@ -7,47 +7,40 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="shop.html" class="logo">GRADIENT<span>BIKES</span></a>
-        <a href="shop.html" style="text-decoration:none; color:var(--dark); font-weight:700;">← Back to Shop</a>
+        <a href="index.html" class="logo"><span class="grad-text">GRADIENT</span>BIKES</a>
+        <a href="shop.html" style="text-decoration:none; font-weight:700; color:black;">← Back</a>
     </nav>
 
-    <main id="detailsPage" class="details-wrapper">
-        </main>
+    <div class="container">
+        <div id="detailsPage" class="details-grid"></div>
+    </div>
 
     <script>
-        async function fetchDetails() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const targetId = urlParams.get('id');
-
-            const response = await fetch('products.csv');
-            const data = await response.text();
-            const lines = data.split('\n').slice(1);
-            
-            const p = lines.map(line => {
-                const [id, name, cat, price, desc, img] = line.split(',');
-                return { id: id?.trim(), name, cat, price, desc, img };
-            }).find(item => item.id === targetId);
+        async function loadDetails() {
+            const id = new URLSearchParams(window.location.search).get('id');
+            const resp = await fetch('products.csv');
+            const data = await resp.text();
+            const p = data.split('\n').slice(1).map(row => {
+                const [pid, name, cat, price, desc] = row.split(',');
+                return { id: pid?.trim(), name, cat, price, desc };
+            }).find(item => item.id === id);
 
             if (p) {
                 document.getElementById('detailsPage').innerHTML = `
                     <div class="details-img"></div>
-                    <div class="info">
-                        <span class="category-tag">${p.cat}</span>
+                    <div>
+                        <span class="tag">${p.cat}</span>
                         <h1>${p.name}</h1>
-                        <p class="price-tag">£${p.price}</p>
-                        <div class="desc-box">
-                            <h4>The Details</h4>
+                        <p class="details-price">£${p.price}</p>
+                        <div class="desc-container">
                             <p>${p.desc}</p>
                         </div>
-                        <button class="buy-btn">Add to Basket</button>
+                        <button class="add-btn">Add to Basket</button>
                     </div>
                 `;
-            } else {
-                document.getElementById('detailsPage').innerHTML = "<h1>Product not found.</h1>";
             }
         }
-
-        fetchDetails();
+        loadDetails();
     </script>
 </body>
 </html>
