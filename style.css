@@ -8,7 +8,13 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; color: var(--dark); background-color: #fff; overflow-x: hidden; }
+body { 
+    font-family: 'Inter', sans-serif; 
+    color: var(--dark); 
+    background-color: #fff; 
+    line-height: 1.5;
+    min-height: 100vh;
+}
 
 /* --- Navigation --- */
 .navbar {
@@ -19,102 +25,80 @@ body { font-family: 'Inter', sans-serif; color: var(--dark); background-color: #
 }
 .logo { font-weight: 900; font-size: 1.4rem; text-decoration: none; color: var(--dark); letter-spacing: -1.5px; }
 .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; margin-left: 1.5rem; font-size: 0.9rem; }
 
-/* --- Shop Layout --- */
-.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
-
-.shop-layout {
-    display: flex; flex-direction: column; gap: 3rem; padding: 60px 0;
+/* --- THE HOME PAGE FIX (Perfectly Centered) --- */
+.hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical center */
+    align-items: center;     /* Horizontal center */
+    text-align: center;
+    min-height: calc(100vh - 80px); /* Full height minus navbar */
+    padding: 2rem 5%;
+    background: radial-gradient(circle at center, rgba(162, 255, 0, 0.05), transparent);
 }
 
-/* Category Selector Fix */
-.filter-box { width: 100%; }
-.filter-box h3 { font-size: 0.85rem; text-transform: uppercase; margin-bottom: 1rem; color: #111; font-weight: 800; letter-spacing: 0.5px; }
+.hero-content {
+    max-width: 800px;
+    width: 100%;
+}
+
+.hero-content h1 { 
+    font-size: clamp(3rem, 10vw, 6rem); 
+    font-weight: 900; 
+    letter-spacing: -4px; 
+    line-height: 0.9; 
+    margin-bottom: 20px; 
+}
+
+.hero-content p { 
+    font-size: 1.2rem; 
+    color: #4b5563; 
+    max-width: 600px; 
+    margin: 0 auto 40px auto; /* Centers the paragraph itself */
+}
+
+/* The Proper Button */
+.btn-grad { 
+    padding: 1.2rem 3.5rem; 
+    font-weight: 900; 
+    color: #fff; 
+    background: var(--dark); 
+    text-decoration: none; 
+    border-radius: 100px; 
+    display: inline-block; 
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn-grad:hover { 
+    transform: scale(1.05); 
+    box-shadow: 0 15px 30px rgba(162, 255, 0, 0.25);
+    background: #1a1a1a;
+}
+
+/* --- Category & Shop Fixes --- */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
+.shop-layout { display: flex; flex-direction: column; gap: 3rem; padding: 60px 0; }
 
 .filter-select {
-    width: 100%;
-    max-width: 280px;
-    padding: 16px 20px; /* Bigger touch target */
-    border: 2px solid var(--border); /* Slightly thicker border */
-    border-radius: 12px;
-    background-color: var(--white);
-    font-size: 1rem;
-    font-weight: 600;
+    width: 100%; max-width: 320px;
+    padding: 18px 24px;
+    border: 2px solid var(--dark); 
+    border-radius: 14px;
+    background: #fff;
+    font-size: 1rem; font-weight: 800;
     cursor: pointer;
-    appearance: none; /* Removes default arrow to style our own */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 15px;
-    transition: border-color 0.2s;
+    background-position: right 20px center;
+    background-size: 20px;
 }
-
-.filter-select:focus { outline: none; border-color: #a2ff00; }
 
 @media (min-width: 768px) {
     .shop-layout { flex-direction: row; align-items: flex-start; }
-    .filter-box { width: 260px; flex-shrink: 0; position: sticky; top: 120px; }
-    .product-grid { 
-        display: grid; 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 32px; flex-grow: 1; 
-    }
-}
-
-@media (min-width: 1100px) {
-    .product-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* --- Details Page Fix --- */
-.details-grid {
-    display: flex; flex-direction: column; gap: 60px; padding: 60px 0;
-}
-
-@media (min-width: 768px) {
-    .details-grid { flex-direction: row; align-items: stretch; } /* Align items stretch for better balance */
-    .details-img-container { width: 55%; }
-    .details-info { width: 45%; display: flex; flex-direction: column; justify-content: flex-start; }
-}
-
-.details-img {
-    width: 100%; aspect-ratio: 1/1; background: var(--soft-bg); border-radius: 32px;
-}
-
-.details-info h1 { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -2px; line-height: 1.1; margin: 0.5rem 0 1rem 0; }
-.details-price { font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; }
-
-/* The Description Box */
-.description-container { 
-    background: var(--soft-bg); 
-    padding: 30px; 
-    border-radius: 24px; 
-    margin-bottom: 24px; /* Space between text and button */
-}
-.description-container h4 { text-transform: uppercase; font-size: 0.75rem; color: #94a3b8; margin-bottom: 12px; letter-spacing: 1px; }
-.description-container p { font-size: 1.05rem; line-height: 1.6; color: #334155; }
-
-.add-btn { 
-    width: 100%; 
-    padding: 20px; 
-    background: var(--dark); 
-    color: #fff; 
-    border: none; 
-    border-radius: 18px; 
-    font-weight: 800; 
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-}
-
-.add-btn:hover { background: #1a1a1a; transform: translateY(-2px); }
-
-/* --- Global Utilities --- */
-.card {
-    background: #fff; border: 1px solid var(--border); border-radius: 28px;
-    padding: 1.8rem; text-decoration: none; color: inherit; transition: 0.3s;
-}
-.card:hover { transform: translateY(-8px); border-color: #a2ff00; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-.img-box {
-    aspect-ratio: 1/1; background: var(--soft-bg); border-radius: 18px;
-    margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center;
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; flex-grow: 1; }
 }
