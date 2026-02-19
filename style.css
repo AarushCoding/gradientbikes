@@ -3,222 +3,87 @@
 :root {
     --grad: linear-gradient(135deg, #a2ff00 0%, #00d4ff 100%);
     --dark: #0a0a0a;
-    --white: #ffffff;
     --border: #e5e7eb;
     --soft-bg: #f9fafb;
-    --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04);
 }
 
+/* Base Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: 'Inter', sans-serif;
-    color: var(--dark);
-    background-color: var(--white);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-}
+body { font-family: 'Inter', sans-serif; color: var(--dark); background-color: #fff; overflow-x: hidden; }
 
 /* --- Navigation --- */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 5%;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5%; background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
     border-bottom: 1px solid var(--border);
 }
+.logo { font-weight: 900; font-size: 1.4rem; text-decoration: none; color: var(--dark); letter-spacing: -1.5px; }
+.grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; margin-left: 1.5rem; font-size: 0.9rem; }
 
-.logo {
-    font-weight: 900;
-    font-size: 1.4rem;
-    text-decoration: none;
-    color: var(--dark);
-    letter-spacing: -1.5px;
-}
-
-.grad-text {
-    background: var(--grad);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 700;
-    margin-left: 1.5rem;
-    font-size: 0.9rem;
-}
-
-/* --- Home / Hero Section (Centered) --- */
+/* --- Hero (Home Screen) --- */
 .hero {
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center; /* Centering the text */
-    padding: 0 10%;
-    background: radial-gradient(circle at center, rgba(162, 255, 0, 0.05), transparent);
+    min-height: 80vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 2rem 5%; background: radial-gradient(circle at center, rgba(162, 255, 0, 0.05), transparent);
 }
+.hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; line-height: 1; letter-spacing: -3px; margin-bottom: 1.5rem; }
+.hero p { font-size: 1.1rem; color: #4b5563; max-width: 600px; margin: 0 auto 2.5rem; }
+.btn-grad { padding: 1.2rem 3rem; font-weight: 800; color: #fff; background: var(--dark); text-decoration: none; border-radius: 50px; display: inline-block; transition: 0.3s; }
 
-.hero h1 {
-    font-size: clamp(2.5rem, 8vw, 5.5rem);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -3px;
-    margin-bottom: 1.5rem;
-}
-
-.hero p {
-    font-size: 1.1rem;
-    color: #4b5563;
-    max-width: 600px; /* Constrains width to keep it readable */
-    margin: 0 auto 2.5rem; /* Centers the description */
-}
-
-.btn-grad {
-    padding: 1.2rem 3rem;
-    font-weight: 800;
-    color: var(--white);
-    background: var(--dark);
-    text-decoration: none;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    letter-spacing: 1px;
-}
-
-.btn-grad:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(162, 255, 0, 0.2);
-    background: linear-gradient(to right, #000, #222);
-}
-
-/* --- Shop Layout --- */
-.container { 
-    max-width: 1440px; 
-    margin: 0 auto; 
-    padding: 0 5%; 
-}
+/* --- Shop Layout (Fixing the squash) --- */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
 
 .shop-layout {
-    display: flex;
-    flex-direction: column; 
-    gap: 2.5rem;
-    padding: 60px 0;
+    display: flex; flex-direction: column; gap: 2rem; padding: 40px 0;
 }
 
-.filter-box {
-    width: 100%;
-}
-
-.filter-box h3 {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 0.8rem;
-    color: #6b7280;
-}
-
-.filter-select {
-    width: 100%;
-    max-width: 320px;
-    padding: 14px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background-color: var(--soft-bg);
-    font-family: inherit;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* --- Responsive Grid Fix --- */
-.product-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* 1 column on mobile */
-    gap: 24px;
-    width: 100%;
-}
-
-/* Medium Screens (Tablets / iPad) */
+/* Tablet & Desktop (Force columns) */
 @media (min-width: 768px) {
-    .shop-layout {
-        flex-direction: row; /* Sidebar moves to left */
-        align-items: flex-start;
-    }
-    
-    .filter-box {
-        width: 240px;
-        position: sticky;
-        top: 120px;
-    }
-
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns */
-        flex: 1;
+    .shop-layout { flex-direction: row; align-items: flex-start; }
+    .filter-box { width: 240px; flex-shrink: 0; position: sticky; top: 100px; }
+    .product-grid { 
+        display: grid !important; 
+        grid-template-columns: repeat(2, 1fr) !important; /* Forces 2 columns on iPad */
+        gap: 24px; flex-grow: 1; 
     }
 }
 
-/* Large Screens (Desktop) */
-@media (min-width: 1100px) {
-    .product-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    }
+/* Desktop */
+@media (min-width: 1024px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr) !important; }
 }
 
-/* Extra Large Screens */
-@media (min-width: 1400px) {
-    .product-grid {
-        grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    }
-}
-
-/* --- Product Cards --- */
+/* --- Cards --- */
 .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 1.5rem;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
+    background: #fff; border: 1px solid var(--border); border-radius: 20px;
+    padding: 1.5rem; text-decoration: none; color: inherit; transition: 0.3s;
 }
-
-.card:hover {
-    border-color: #a2ff00;
-    transform: translateY(-8px);
-    box-shadow: var(--card-shadow);
-}
-
+.card:hover { transform: translateY(-5px); border-color: #a2ff00; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 .img-box {
-    aspect-ratio: 1 / 1;
-    background: var(--soft-bg);
-    border-radius: 16px;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 900;
-    color: #cbd5e1;
-    letter-spacing: 1px;
+    aspect-ratio: 1/1; background: var(--soft-bg); border-radius: 12px;
+    margin-bottom: 1rem; display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: #94a3b8; font-weight: 900;
 }
 
-.card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 800; }
-.card .price { font-weight: 700; color: #6b7280; font-size: 1.1rem; }
-
-/* --- Footer --- */
-footer {
-    padding: 60px 5%;
-    text-align: center;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
-    color: #9ca3af;
-    font-size: 0.85rem;
+/* --- Details Page Fix --- */
+.details-grid {
+    display: flex; flex-direction: column; gap: 40px; padding: 40px 0;
 }
+
+@media (min-width: 768px) {
+    .details-grid { flex-direction: row; align-items: flex-start; }
+    .details-img-container { width: 50%; }
+    .details-info { width: 50%; }
+}
+
+.details-img {
+    width: 100%; aspect-ratio: 1/1; background: var(--soft-bg); border-radius: 24px;
+}
+.category-pill { display: inline-block; background: var(--grad); color: #fff; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; }
+.details-price { font-size: 2.2rem; font-weight: 800; margin: 15px 0; }
+.description-container { background: var(--soft-bg); padding: 25px; border-radius: 16px; margin: 25px 0; }
+.add-btn { width: 100%; padding: 1.2rem; background: var(--dark); color: #fff; border: none; border-radius: 14px; font-weight: 800; cursor: pointer; }
+
+footer { padding: 40px 0; text-align: center; color: #9ca3af; font-size: 0.8rem; }
