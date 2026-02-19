@@ -41,11 +41,12 @@
             const f = document.getElementById('catFilter').value;
             const grid = document.getElementById('productGrid');
             const filtered = f === 'all' ? products : products.filter(p => p.cat === f);
+            
             grid.innerHTML = filtered.map(p => `
-                <a href="details.html?id=${p.id}" class="card">
+                <a href="details.html?id=${p.id}" class="product-card">
                     <div class="img-box">IMAGE</div>
-                    <h3>${p.name}</h3>
-                    <p class="price">£${p.price}</p>
+                    <div style="font-weight:900; font-size:1.2rem; margin-bottom:5px;">${p.name}</div>
+                    <div style="color:#64748b; font-weight:700;">£${p.price}</div>
                 </a>
             `).join('');
         }
