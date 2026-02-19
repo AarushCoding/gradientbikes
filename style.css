@@ -1,92 +1,172 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-
 :root {
     --grad: linear-gradient(135deg, #a2ff00 0%, #00d4ff 100%);
     --dark: #0a0a0a;
-    --border: #e5e7eb;
-    --soft: #f8fafc;
+    --radius: 16px;
 }
 
-/* --- Foundation --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font-family: 'Inter', sans-serif; 
-    color: var(--dark); 
-    background: #fff; 
-    min-height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #111;
+}
+
+/* NAVBAR */
 .navbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 5%; background: #fff; border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 1000;
-}
-.logo { font-weight: 900; font-size: 1.4rem; text-decoration: none; color: var(--dark); letter-spacing: -1.5px; }
-.grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; margin-left: 1.5rem; font-size: 0.9rem; }
-
-/* --- HOME PAGE FIX (Centering) --- */
-.hero-centered {
-    display: flex; flex-direction: column; 
-    justify-content: center; align-items: center;
-    text-align: center; 
-    min-height: 80vh; /* This forces it to use the screen height */
-    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.hero-centered h1 { 
-    font-size: clamp(2.5rem, 8vw, 5rem); 
-    font-weight: 900; line-height: 0.95; 
-    margin-bottom: 20px; 
+.navbar a {
+    text-decoration: none;
+    color: #111;
+    font-weight: 700;
 }
 
-.hero-centered p { 
-    font-size: 1.1rem; color: #64748b; 
-    max-width: 600px; margin: 0 auto 40px; 
+/* HERO */
+.hero-wrapper {
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 5%;
+}
+
+.hero-wrapper h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+}
+
+.hero-wrapper p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
 }
 
 .btn-main {
-    background: var(--dark); color: #fff; padding: 1.2rem 3rem;
-    border-radius: 50px; text-decoration: none; font-weight: 900;
-    display: inline-block; transition: 0.3s; text-transform: uppercase;
+    background: var(--dark);
+    color: #fff;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    transition: 0.2s ease;
 }
 
-/* --- SHOP PAGE GRID (Prevents link-style collapse) --- */
-.shop-container { max-width: 1400px; margin: 0 auto; padding: 40px 5%; }
+.btn-main:hover {
+    opacity: 0.85;
+}
 
-.shop-grid-layout {
-    display: grid; grid-template-columns: 1fr; gap: 40px;
+/* CATEGORY SELECTOR */
+.category-select {
+    appearance: none;
+    background: #f5f5f5;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    border: 2px solid #ddd;
+    font-weight: 700;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 260px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+}
+
+/* SHOP LAYOUT */
+.shop-container {
+    padding: 40px 5%;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+    margin-top: 40px;
 }
 
 @media (min-width: 768px) {
-    .shop-grid-layout { grid-template-columns: 250px 1fr; align-items: flex-start; }
-    .product-feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .product-card {
-    display: flex; flex-direction: column;
-    text-decoration: none; color: inherit;
-    border: 1px solid var(--border); border-radius: 20px;
-    padding: 1.5rem; transition: 0.3s; background: #fff;
+    border: 1px solid #eee;
+    border-radius: var(--radius);
+    padding: 1rem;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    transition: 0.2s ease;
 }
 
-.product-card:hover { border-color: #a2ff00; transform: translateY(-5px); }
-
-.img-box {
-    width: 100%; aspect-ratio: 1/1; background: var(--soft);
-    border-radius: 12px; margin-bottom: 1.2rem;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; color: #cbd5e1; font-size: 0.8rem;
+.product-card:hover {
+    transform: translateY(-4px);
 }
 
-.filter-select {
-    width: 100%; padding: 15px; border-radius: 12px;
-    border: 2px solid var(--dark); font-weight: 700; font-size: 1rem;
+.product-img {
+    width: 100%;
+    height: 220px;
+    background: #ddd;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
 }
 
-/* --- DETAILS PAGE --- */
-.details-flex { display: flex; flex-direction: column; gap: 40px; padding: 60px 0; }
+/* DETAILS PAGE */
+.details-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 5%;
+}
+
 @media (min-width: 768px) {
-    .details-flex { flex-direction: row; }
-    .details-left, .details-right { width: 50%; }
+    .details-flex {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
+
+.details-left,
+.details-right {
+    flex: 1;
+}
+
+.details-img {
+    width: 100%;
+    height: 400px;
+    background: #ddd;
+    border-radius: var(--radius);
+}
+
+.details-right h1 {
+    margin-bottom: 1rem;
+}
+
+.details-right p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.price-tag {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
 }
