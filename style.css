@@ -1,104 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 :root {
     --grad: linear-gradient(135deg, #a2ff00 0%, #00d4ff 100%);
     --dark: #0a0a0a;
     --border: #e5e7eb;
-    --soft-bg: #f9fafb;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font-family: 'Inter', sans-serif; 
-    color: var(--dark); 
-    background-color: #fff; 
-    line-height: 1.5;
-    min-height: 100vh;
-}
+body { font-family: 'Inter', sans-serif; color: var(--dark); background: #fff; }
 
-/* --- Navigation --- */
+/* --- Navbar --- */
 .navbar {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 5%; background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
-    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 5%; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 1000; background: #fff;
 }
 .logo { font-weight: 900; font-size: 1.4rem; text-decoration: none; color: var(--dark); letter-spacing: -1.5px; }
 .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; margin-left: 1.5rem; font-size: 0.9rem; }
 
-/* --- THE HOME PAGE FIX (Perfectly Centered) --- */
-.hero-wrapper {
+/* --- Shop Layout Fix --- */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; }
+
+.shop-layout {
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* Vertical center */
-    align-items: center;     /* Horizontal center */
-    text-align: center;
-    min-height: calc(100vh - 80px); /* Full height minus navbar */
-    padding: 2rem 5%;
-    background: radial-gradient(circle at center, rgba(162, 255, 0, 0.05), transparent);
+    flex-direction: column; 
+    gap: 40px;
+    padding: 60px 0;
 }
 
-.hero-content {
-    max-width: 800px;
-    width: 100%;
-}
+/* Category Sidebar */
+.filter-box { width: 100%; }
+.filter-label { display: block; font-size: 0.85rem; font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
 
-.hero-content h1 { 
-    font-size: clamp(3rem, 10vw, 6rem); 
-    font-weight: 900; 
-    letter-spacing: -4px; 
-    line-height: 0.9; 
-    margin-bottom: 20px; 
-}
-
-.hero-content p { 
-    font-size: 1.2rem; 
-    color: #4b5563; 
-    max-width: 600px; 
-    margin: 0 auto 40px auto; /* Centers the paragraph itself */
-}
-
-/* The Proper Button */
-.btn-grad { 
-    padding: 1.2rem 3.5rem; 
-    font-weight: 900; 
-    color: #fff; 
-    background: var(--dark); 
-    text-decoration: none; 
-    border-radius: 100px; 
-    display: inline-block; 
-    transition: all 0.3s ease;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.btn-grad:hover { 
-    transform: scale(1.05); 
-    box-shadow: 0 15px 30px rgba(162, 255, 0, 0.25);
-    background: #1a1a1a;
-}
-
-/* --- Category & Shop Fixes --- */
-.container { max-width: 1400px; margin: 0 auto; padding: 0 5%; width: 100%; }
-.shop-layout { display: flex; flex-direction: column; gap: 3rem; padding: 60px 0; }
-
-.filter-select {
-    width: 100%; max-width: 320px;
-    padding: 18px 24px;
-    border: 2px solid var(--dark); 
-    border-radius: 14px;
+.custom-select {
+    width: 100%; max-width: 280px;
+    padding: 16px 20px;
+    border: 2px solid var(--dark);
+    border-radius: 12px;
+    font-size: 1rem; font-weight: 700;
     background: #fff;
-    font-size: 1rem; font-weight: 800;
     cursor: pointer;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 20px center;
-    background-size: 20px;
+    background-position: right 15px center;
+    background-size: 18px;
+}
+
+/* --- THE GRID FIX (Addresses IMG_0448.png) --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Default for small phones */
+    gap: 30px;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
     .shop-layout { flex-direction: row; align-items: flex-start; }
-    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; flex-grow: 1; }
+    .filter-box { width: 250px; flex-shrink: 0; position: sticky; top: 120px; }
+    
+    /* Forces 3 columns on iPad as seen in your browser tabs */
+    .product-grid { 
+        grid-template-columns: repeat(3, 1fr); 
+        flex-grow: 1;
+    }
 }
+
+/* Product Cards */
+.card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.img-box {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #cbd5e1;
+    text-transform: uppercase;
+}
+
+.card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 5px; }
+.card .price { font-size: 1rem; font-weight: 600; color: #64748b; }
